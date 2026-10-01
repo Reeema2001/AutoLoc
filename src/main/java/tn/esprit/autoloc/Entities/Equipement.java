@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -19,4 +21,7 @@ public class Equipement {
 
     @Column(nullable = false, length = 50)
     String libelle;
+
+    @ManyToMany(mappedBy = "equipements", fetch = FetchType.LAZY)
+    Set<Vehicule> vehicules;
 }

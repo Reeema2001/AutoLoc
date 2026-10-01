@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -28,4 +30,10 @@ public class Agence {
 
     @Column(nullable = false, length = 20)
     String telephone;
+
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    Set<Vehicule> vehicules;
+
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
+    Set<Employe> employes;
 }

@@ -28,4 +28,13 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     StatutReservation statut;
+
+    @ManyToOne
+    Client client;
+
+    @ManyToOne
+    Vehicule vehicule;
+
+    @OneToOne
+    Contrat contrat;
 }

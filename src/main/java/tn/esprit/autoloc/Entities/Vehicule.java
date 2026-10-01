@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -40,9 +41,9 @@ public class Vehicule {
     @Column(nullable = false, length = 20)
     StatutVehicule statut;
 
+    @ManyToOne
+    Agence agence;
 
-
-
-
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    Set<Equipement> equipements;
 }
