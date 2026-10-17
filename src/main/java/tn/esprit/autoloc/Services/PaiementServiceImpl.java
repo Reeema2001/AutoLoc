@@ -22,7 +22,7 @@ public class PaiementServiceImpl implements IPaiement {
     }
 
     @Override
-    public void  supprimerPaiement(long idPaiement) {
+    public void  supprimerPaiement(Long idPaiement) {
         paiementRepo.deleteById(idPaiement);
     }
 
@@ -37,7 +37,7 @@ public class PaiementServiceImpl implements IPaiement {
     }
 
     @Override
-    public Paiement recupererPaiementById(long idPaiement) {
+    public Paiement recupererPaiementById(Long idPaiement) {
         return paiementRepo.findById(idPaiement).get();
     }
 }

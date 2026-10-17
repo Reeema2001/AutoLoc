@@ -22,7 +22,12 @@ public class ClientServiceImpl implements IClient {
     }
 
     @Override
-    public void  supprimerClient(long idClient) {
+    public Client modifierClient(Client cl) {
+        return clientRepo.save(cl);
+    }
+
+    @Override
+    public void  supprimerClient(Long idClient) {
         clientRepo.deleteById(idClient);
     }
 
@@ -37,7 +42,7 @@ public class ClientServiceImpl implements IClient {
     }
 
     @Override
-    public Client recupererClientById(long idClient) {
+    public Client recupererClientById(Long idClient) {
         return clientRepo.findById(idClient).get();
     }
 }

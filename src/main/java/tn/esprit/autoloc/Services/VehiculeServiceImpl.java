@@ -22,7 +22,7 @@ public class VehiculeServiceImpl implements IVehicule {
     }
 
     @Override
-    public void  supprimerVehicule(long idVehicule) {
+    public void  supprimerVehicule(Long idVehicule) {
         vehiculeRepo.deleteById(idVehicule);
     }
 
@@ -37,7 +37,7 @@ public class VehiculeServiceImpl implements IVehicule {
     }
 
     @Override
-    public Vehicule recupererVehiculeById(long idVehicule) {
+    public Vehicule recupererVehiculeById(Long idVehicule) {
         return vehiculeRepo.findById(idVehicule).get();
     }
 }

@@ -22,7 +22,7 @@ public class ContratServiceImpl implements IContrat {
     }
 
     @Override
-    public void  supprimerContrat(long idContrat) {
+    public void  supprimerContrat(Long idContrat) {
         contratRepo.deleteById(idContrat);
     }
 
@@ -37,7 +37,7 @@ public class ContratServiceImpl implements IContrat {
     }
 
     @Override
-    public Contrat recupererContratById(long idContrat) {
+    public Contrat recupererContratById(Long idContrat) {
         return contratRepo.findById(idContrat).get();
     }
 }

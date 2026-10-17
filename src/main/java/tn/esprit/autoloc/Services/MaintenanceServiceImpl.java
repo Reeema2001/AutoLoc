@@ -22,7 +22,7 @@ public class MaintenanceServiceImpl implements IMaintenance {
     }
 
     @Override
-    public void  supprimerMaintenance(long idMaintenance) {
+    public void  supprimerMaintenance(Long idMaintenance) {
         maintenanceRepo.deleteById(idMaintenance);
     }
 
@@ -37,7 +37,7 @@ public class MaintenanceServiceImpl implements IMaintenance {
     }
 
     @Override
-    public Maintenance recupererMaintenanceById(long idMaintenance) {
+    public Maintenance recupererMaintenanceById(Long idMaintenance) {
         return maintenanceRepo.findById(idMaintenance).get();
     }
 }

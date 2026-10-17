@@ -22,7 +22,7 @@ public class EquipementServiceImpl implements IEquipement {
     }
 
     @Override
-    public void  supprimerEquipement(long idEquipement) {
+    public void  supprimerEquipement(Long idEquipement) {
         equipementRepo.deleteById(idEquipement);
     }
 
@@ -37,7 +37,7 @@ public class EquipementServiceImpl implements IEquipement {
     }
 
     @Override
-    public Equipement recupererEquipementById(long idEquipement) {
+    public Equipement recupererEquipementById(Long idEquipement) {
         return equipementRepo.findById(idEquipement).get();
     }
 }

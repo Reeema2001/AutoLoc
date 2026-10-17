@@ -64,4 +64,10 @@ L'objectif est de numériser l'ensemble du processus au travers d'une applicatio
 
 - [x] Atelier 0 : mise en place de l'environnement
 - [x] Atelier 1 : projet Spring Boot + entités JPA (sans associations)
-- [ ] Atelier 2 : associations entre entités
+- [x] Atelier 2 : associations entre entités (OneToOne, OneToMany, ManyToOne, ManyToMany, cascade, fetch)
+- [x] Atelier 3 : Spring Data JPA et Repository (un repository `JpaRepository` par entité)
+- Atelier 4 : IoC, injection de dépendances et couche Service
+  - [x] Une interface et une implémentation `@Service` par entité, injection par constructeur
+  - [x] Identifiants des entités en `Long`
+- Atelier 5 : Spring MVC et API REST
+  - [x] `ClientController` : ajout, affichage, recherche par id, modification, suppression (testé avec Postman)

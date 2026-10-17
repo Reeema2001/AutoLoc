@@ -17,7 +17,7 @@ import java.util.Set;
 public class Equipement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idEquipement;
+    Long idEquipement;
 
     @Column(nullable = false, length = 50)
     String libelle;

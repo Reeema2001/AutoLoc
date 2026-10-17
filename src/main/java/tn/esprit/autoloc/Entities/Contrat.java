@@ -19,7 +19,7 @@ import java.util.Set;
 public class Contrat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idContrat;
+    Long idContrat;
 
     @Column(nullable = false)
     LocalDate dateSignature;

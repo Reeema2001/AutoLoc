@@ -22,7 +22,7 @@ public class AgenceServiceImpl implements IAgence {
     }
 
     @Override
-    public void  supprimerAgence(long idAgence) {
+    public void  supprimerAgence(Long idAgence) {
         agenceRepo.deleteById(idAgence);
     }
 
@@ -37,7 +37,7 @@ public class AgenceServiceImpl implements IAgence {
     }
 
     @Override
-    public Agence recupererAgenceById(long idAgence) {
+    public Agence recupererAgenceById(Long idAgence) {
         return agenceRepo.findById(idAgence).get();
     }
 }

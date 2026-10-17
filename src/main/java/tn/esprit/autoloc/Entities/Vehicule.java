@@ -19,7 +19,7 @@ import java.util.Set;
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idVehicule;
+    Long idVehicule;
 
     @Column(nullable = false, unique = true, length = 20)
     String immatriculation;

@@ -7,9 +7,10 @@ import java.util.Set;
 
 public interface IClient {
     Client ajouterClient(Client cl);
-    void supprimerClient(long idClient);
+    Client modifierClient(Client cl);
+    void supprimerClient(Long idClient);
     List<Client> recupererClients();
     Set<Client> findClients();
-    Client recupererClientById (long idClient);
+    Client recupererClientById (Long idClient);
 
 }

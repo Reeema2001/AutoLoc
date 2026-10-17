@@ -7,9 +7,9 @@ import java.util.Set;
 
 public interface IReservation {
     Reservation ajouterReservation(Reservation re);
-    void supprimerReservation(long idReservation);
+    void supprimerReservation(Long idReservation);
     List<Reservation> recupererReservations();
     Set<Reservation> findReservations();
-    Reservation recupererReservationById (long idReservation);
+    Reservation recupererReservationById (Long idReservation);
 
 }

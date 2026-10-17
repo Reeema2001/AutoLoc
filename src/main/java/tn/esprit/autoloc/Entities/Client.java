@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idClient;
+    Long idClient;
 
     @Column(nullable = false, length = 50)
     String nom;

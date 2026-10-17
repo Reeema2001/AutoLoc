@@ -22,7 +22,7 @@ public class EmployeServiceImpl implements IEmploye {
     }
 
     @Override
-    public void  supprimerEmploye(long idEmploye) {
+    public void  supprimerEmploye(Long idEmploye) {
         employeRepo.deleteById(idEmploye);
     }
 
@@ -37,7 +37,7 @@ public class EmployeServiceImpl implements IEmploye {
     }
 
     @Override
-    public Employe recupererEmployeById(long idEmploye) {
+    public Employe recupererEmployeById(Long idEmploye) {
         return employeRepo.findById(idEmploye).get();
     }
 }

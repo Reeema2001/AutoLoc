@@ -22,7 +22,7 @@ public class ReservationServiceImpl implements IReservation {
     }
 
     @Override
-    public void  supprimerReservation(long idReservation) {
+    public void  supprimerReservation(Long idReservation) {
         reservationRepo.deleteById(idReservation);
     }
 
@@ -37,7 +37,7 @@ public class ReservationServiceImpl implements IReservation {
     }
 
     @Override
-    public Reservation recupererReservationById(long idReservation) {
+    public Reservation recupererReservationById(Long idReservation) {
         return reservationRepo.findById(idReservation).get();
     }
 }

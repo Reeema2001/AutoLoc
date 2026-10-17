@@ -17,7 +17,7 @@ import java.util.Set;
 public class Agence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idAgence;
+    Long idAgence;
 
     @Column(nullable = false, length = 50)
     String nom;

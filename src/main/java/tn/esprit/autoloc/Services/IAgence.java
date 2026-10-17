@@ -7,9 +7,9 @@ import java.util.Set;
 
 public interface IAgence {
     Agence ajouterAgence(Agence ag);
-    void supprimerAgence(long idAgence);
+    void supprimerAgence(Long idAgence);
     List<Agence> recupererAgences();
     Set<Agence> findAgences();
-    Agence recupererAgenceById (long idAgence);
+    Agence recupererAgenceById (Long idAgence);
 
 }
