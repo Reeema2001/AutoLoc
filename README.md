@@ -69,5 +69,10 @@ L'objectif est de numériser l'ensemble du processus au travers d'une applicatio
 - Atelier 4 : IoC, injection de dépendances et couche Service
   - [x] Une interface et une implémentation `@Service` par entité, injection par constructeur
   - [x] Identifiants des entités en `Long`
+  - [x] Exception métier `ResourceNotFoundException` (recherche par id avec `orElseThrow`)
+  - [x] Correction SonarQube for IDE : règle java:S3655 (`Optional.get()` sans vérification)
 - Atelier 5 : Spring MVC et API REST
   - [x] `ClientController` : ajout, affichage, recherche par id, modification, suppression (testé avec Postman)
+  - [x] Contrôleurs Agence, Employe, Vehicule, Equipement, Reservation, Contrat et Maintenance (CRUD)
+  - [x] `PaiementController` en lecture seule (les paiements sont créés en cascade avec leur contrat)
+  - [x] Annotations Jackson contre les boucles de sérialisation (`@JsonManagedReference` / `@JsonBackReference` pour Contrat ↔ Paiement, `@JsonIgnore` côté inverse)

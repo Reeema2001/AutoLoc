@@ -1,5 +1,7 @@
 package tn.esprit.autoloc.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,8 +33,10 @@ public class Contrat {
     boolean valide;
 
     @OneToOne(mappedBy = "contrat")
+    @JsonIgnore
     Reservation reservation;
 
     @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL)
+    @JsonManagedReference("contrat-paiements")
     Set<Paiement> paiements;
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface IMaintenance {
     Maintenance ajouterMaintenance(Maintenance ma);
+    Maintenance modifierMaintenance(Maintenance ma);
     void supprimerMaintenance(Long idMaintenance);
     List<Maintenance> recupererMaintenances();
     Set<Maintenance> findMaintenances();

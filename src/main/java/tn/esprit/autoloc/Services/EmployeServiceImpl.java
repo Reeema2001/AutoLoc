@@ -2,6 +2,7 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Employe;
 import tn.esprit.autoloc.Repositories.IEmployeRepo;
 
@@ -22,6 +23,11 @@ public class EmployeServiceImpl implements IEmploye {
     }
 
     @Override
+    public Employe modifierEmploye(Employe em) {
+        return employeRepo.save(em);
+    }
+
+    @Override
     public void  supprimerEmploye(Long idEmploye) {
         employeRepo.deleteById(idEmploye);
     }
@@ -38,6 +44,9 @@ public class EmployeServiceImpl implements IEmploye {
 
     @Override
     public Employe recupererEmployeById(Long idEmploye) {
-        return employeRepo.findById(idEmploye).get();
+        // Avant (java:S3655 : Optional.get() appelé sans vérifier que la valeur existe)
+        // return employeRepo.findById(idEmploye).get();
+        return employeRepo.findById(idEmploye)
+                .orElseThrow(() -> new ResourceNotFoundException("Employe", idEmploye));
     }
 }

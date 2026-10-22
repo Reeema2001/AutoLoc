@@ -2,6 +2,7 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Vehicule;
 import tn.esprit.autoloc.Repositories.IVehiculeRepo;
 
@@ -22,6 +23,11 @@ public class VehiculeServiceImpl implements IVehicule {
     }
 
     @Override
+    public Vehicule modifierVehicule(Vehicule ve) {
+        return vehiculeRepo.save(ve);
+    }
+
+    @Override
     public void  supprimerVehicule(Long idVehicule) {
         vehiculeRepo.deleteById(idVehicule);
     }
@@ -38,6 +44,11 @@ public class VehiculeServiceImpl implements IVehicule {
 
     @Override
     public Vehicule recupererVehiculeById(Long idVehicule) {
-        return vehiculeRepo.findById(idVehicule).get();
+        /*
+         Avant (java:S3655 : Optional.get() appelé sans vérifier que la valeur existe)
+         return vehiculeRepo.findById(idVehicule).get();
+         */
+        return vehiculeRepo.findById(idVehicule)
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicule", idVehicule));
     }
 }

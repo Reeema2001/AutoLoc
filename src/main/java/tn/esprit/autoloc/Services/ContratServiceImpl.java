@@ -2,6 +2,7 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Contrat;
 import tn.esprit.autoloc.Repositories.IContratRepo;
 
@@ -22,6 +23,11 @@ public class ContratServiceImpl implements IContrat {
     }
 
     @Override
+    public Contrat modifierContrat(Contrat co) {
+        return contratRepo.save(co);
+    }
+
+    @Override
     public void  supprimerContrat(Long idContrat) {
         contratRepo.deleteById(idContrat);
     }
@@ -38,6 +44,9 @@ public class ContratServiceImpl implements IContrat {
 
     @Override
     public Contrat recupererContratById(Long idContrat) {
-        return contratRepo.findById(idContrat).get();
+        // Avant (java:S3655 : Optional.get() appelé sans vérifier que la valeur existe)
+        // return contratRepo.findById(idContrat).get();
+        return contratRepo.findById(idContrat)
+                .orElseThrow(() -> new ResourceNotFoundException("Contrat", idContrat));
     }
 }

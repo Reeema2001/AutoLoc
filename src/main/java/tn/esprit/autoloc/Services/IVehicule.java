@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface IVehicule {
     Vehicule ajouterVehicule(Vehicule ve);
+    Vehicule modifierVehicule(Vehicule ve);
     void supprimerVehicule(Long idVehicule);
     List<Vehicule> recupererVehicules();
     Set<Vehicule> findVehicules();

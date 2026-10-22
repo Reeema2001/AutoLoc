@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface IEquipement {
     Equipement ajouterEquipement(Equipement eq);
+    Equipement modifierEquipement(Equipement eq);
     void supprimerEquipement(Long idEquipement);
     List<Equipement> recupererEquipements();
     Set<Equipement> findEquipements();

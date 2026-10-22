@@ -2,6 +2,7 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Agence;
 import tn.esprit.autoloc.Repositories.IAgenceRepo;
 
@@ -22,6 +23,11 @@ public class AgenceServiceImpl implements IAgence {
     }
 
     @Override
+    public Agence modifierAgence(Agence ag) {
+        return agenceRepo.save(ag);
+    }
+
+    @Override
     public void  supprimerAgence(Long idAgence) {
         agenceRepo.deleteById(idAgence);
     }
@@ -38,6 +44,9 @@ public class AgenceServiceImpl implements IAgence {
 
     @Override
     public Agence recupererAgenceById(Long idAgence) {
-        return agenceRepo.findById(idAgence).get();
+        // Avant (java:S3655 : Optional.get() appelé sans vérifier que la valeur existe)
+        // return agenceRepo.findById(idAgence).get();
+        return agenceRepo.findById(idAgence)
+                .orElseThrow(() -> new ResourceNotFoundException("Agence", idAgence));
     }
 }

@@ -2,6 +2,7 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Client;
 import tn.esprit.autoloc.Repositories.IClientRepo;
 
@@ -43,6 +44,9 @@ public class ClientServiceImpl implements IClient {
 
     @Override
     public Client recupererClientById(Long idClient) {
-        return clientRepo.findById(idClient).get();
+        // Avant (java:S3655 : Optional.get() appelé sans vérifier que la valeur existe)
+        // return clientRepo.findById(idClient).get();
+        return clientRepo.findById(idClient)
+                .orElseThrow(() -> new ResourceNotFoundException("Client", idClient));
     }
 }

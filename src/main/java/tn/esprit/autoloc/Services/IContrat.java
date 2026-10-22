@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface IContrat {
     Contrat ajouterContrat(Contrat co);
+    Contrat modifierContrat(Contrat co);
     void supprimerContrat(Long idContrat);
     List<Contrat> recupererContrats();
     Set<Contrat> findContrats();

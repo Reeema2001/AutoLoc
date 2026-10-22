@@ -2,6 +2,7 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Reservation;
 import tn.esprit.autoloc.Repositories.IReservationRepo;
 
@@ -22,6 +23,11 @@ public class ReservationServiceImpl implements IReservation {
     }
 
     @Override
+    public Reservation modifierReservation(Reservation re) {
+        return reservationRepo.save(re);
+    }
+
+    @Override
     public void  supprimerReservation(Long idReservation) {
         reservationRepo.deleteById(idReservation);
     }
@@ -38,6 +44,9 @@ public class ReservationServiceImpl implements IReservation {
 
     @Override
     public Reservation recupererReservationById(Long idReservation) {
-        return reservationRepo.findById(idReservation).get();
+        // Avant (java:S3655 : Optional.get() appelé sans vérifier que la valeur existe)
+        // return reservationRepo.findById(idReservation).get();
+        return reservationRepo.findById(idReservation)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation", idReservation));
     }
 }
