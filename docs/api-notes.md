@@ -2,7 +2,7 @@
 
 ## A. Endpoints
 
-L'application tourne sur `http://localhost:8089`. Les codes ci-dessous sont ceux du projet **actuel** :
+L'application tourne sur `http://localhost:8089/autoloc` (context-path `/autoloc`) : les routes ci-dessous sont à préfixer par `/autoloc`. Les codes ci-dessous sont ceux du projet **actuel** :
 - **succès :** les méthodes n'ont pas encore de `@ResponseStatus`, donc tout succès renvoie `200` ;
 - **erreurs :** il n'y a pas encore de `GlobalExceptionHandler`, donc une `ResourceNotFoundException` produit une erreur `500`.
 
@@ -11,9 +11,9 @@ L'application tourne sur `http://localhost:8089`. Les codes ci-dessous sont ceux
 | `ClientController` | `POST /api/Client/AddClient` | `ajouterClient` | 200 | 400 (JSON invalide), 500 (colonne obligatoire nulle, email ou permis en double) |
 | | `GET /api/Client/GetAll` | `recupererClients` | 200 | — |
 | | `GET /api/Client/GetClient/{id}` | `recupererClientById` | 200 | 500 (id absent) |
-| | `PUT /api/Client/EditClient` | `modifierClient` | 200 | 500 (colonne obligatoire nulle) |
+| | `PUT /api/Client/EditClient/{id}` | `modifierClient` | 200 | 500 (colonne obligatoire nulle) |
 | | `DELETE /api/Client/DeleteClient/{id}` | `supprimerClient` | 200 | 500 (clé étrangère : réservations liées) |
-| `AgenceController` | `POST /api/Agence/AddAgence`, `GET /api/Agence/GetAll`, `GET /api/Agence/GetAgence/{id}`, `PUT /api/Agence/EditAgence`, `DELETE /api/Agence/DeleteAgence/{id}` | `ajouterAgence`, `recupererAgences`, `recupererAgenceById`, `modifierAgence`, `supprimerAgence` | 200 | 500 (id absent, clé étrangère) |
+| `AgenceController` | `POST /api/Agence/AddAgence`, `GET /api/Agence/GetAll`, `GET /api/Agence/GetAgence/{id}`, `PUT /api/Agence/EditAgence/{id}`, `DELETE /api/Agence/DeleteAgence/{id}` | `ajouterAgence`, `recupererAgences`, `recupererAgenceById`, `modifierAgence`, `supprimerAgence` | 200 | 500 (id absent, clé étrangère) |
 | `EmployeController` | même schéma, sous `/api/Employe/...` | méthodes de `IEmploye` | 200 | 500 |
 | `VehiculeController` | même schéma, sous `/api/Vehicule/...` | méthodes de `IVehicule` | 200 | 500 |
 | `EquipementController` | même schéma, sous `/api/Equipement/...` | méthodes de `IEquipement` | 200 | 500 |
@@ -49,7 +49,7 @@ L'application tourne sur `http://localhost:8089`. Les codes ci-dessous sont ceux
 | Outil | Ce qu'il apporte | Exemple rencontré |
 | --- | --- | --- |
 | Postman | Client HTTP pour **tester** l'API : on écrit et rejoue les requêtes, et on vérifie le statut et le corps de la réponse. | Le `POST /api/Client/AddClient` renvoyait `400`, car l'id `long` primitif ne pouvait pas recevoir `null`. Corrigé en passant les ids en `Long`. L'erreur `Invalid protocol` venait du verbe `GET` saisi dans la barre d'URL. |
-| Swagger UI (SpringDoc) | **Documente** l'API à partir des contrôleurs (spécification OpenAPI) et permet d'essayer les endpoints depuis le navigateur. | *à compléter : SpringDoc n'est pas encore installé.* |
+| Swagger UI (SpringDoc) | **Documente** l'API à partir des contrôleurs (spécification OpenAPI) et permet d'essayer les endpoints depuis le navigateur. | SpringDoc 3.0.0, classe `OpenApiConfig` (titre, description, version), `@Tag` sur chaque contrôleur et `@Operation` sur chaque méthode. Documentation sur `http://localhost:8089/autoloc/swagger-ui/index.html` et `/autoloc/v3/api-docs`. |
 
 ## D. Anomalies SonarQube for IDE
 

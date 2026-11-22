@@ -76,3 +76,9 @@ L'objectif est de numériser l'ensemble du processus au travers d'une applicatio
   - [x] Contrôleurs Agence, Employe, Vehicule, Equipement, Reservation, Contrat et Maintenance (CRUD)
   - [x] `PaiementController` en lecture seule (les paiements sont créés en cascade avec leur contrat)
   - [x] Annotations Jackson contre les boucles de sérialisation (`@JsonManagedReference` / `@JsonBackReference` pour Contrat ↔ Paiement, `@JsonIgnore` côté inverse)
+  - [x] Documentation Swagger avec SpringDoc : `OpenApiConfig`, `@Tag` et `@Operation` sur les contrôleurs (`/autoloc/swagger-ui/index.html`)
+- Atelier 6 : affectation et désaffectation entre entités (Chapitre 7)
+  - [x] `EmployeController` : désaffecter un employé de son agence, puis l'affecter à une autre (`PUT /api/Employe/desaffecterEmploye/{idEmploye}`, `PUT /api/Employe/affecterEmploye/{idEmploye}/{idAgence}`)
+  - [x] `VehiculeController` : affecter un véhicule à une agence (`PUT /api/Vehicule/affecterVehicule/{idVehicule}/{idAgence}`)
+  - [x] `VehiculeController` : affecter et désaffecter un équipement (`PUT /api/Vehicule/affecterEquipement/{idVehicule}/{idEquipement}`, `PUT /api/Vehicule/desaffecterEquipement/{idVehicule}/{idEquipement}`)
+  - [x] Services en `@Transactional` : chargement par `findById` (`orElseThrow`), modification du côté propriétaire, puis `save`

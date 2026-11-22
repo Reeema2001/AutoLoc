@@ -2,8 +2,11 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.Entities.Agence;
 import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Employe;
+import tn.esprit.autoloc.Repositories.IAgenceRepo;
 import tn.esprit.autoloc.Repositories.IEmployeRepo;
 
 import java.util.HashSet;
@@ -15,6 +18,7 @@ import java.util.Set;
 
 public class EmployeServiceImpl implements IEmploye {
     private final IEmployeRepo employeRepo;
+    private final IAgenceRepo agenceRepo;
 
 
     @Override
@@ -48,5 +52,26 @@ public class EmployeServiceImpl implements IEmploye {
         // return employeRepo.findById(idEmploye).get();
         return employeRepo.findById(idEmploye)
                 .orElseThrow(() -> new ResourceNotFoundException("Employe", idEmploye));
+    }
+
+    // Atelier 6 : ManyToOne Employe -> Agence (côté propriétaire : Employe.agence)
+    @Override
+    @Transactional
+    public Employe desaffecterEmploye(Long idEmploye) {
+        Employe employe = employeRepo.findById(idEmploye)
+                .orElseThrow(() -> new ResourceNotFoundException("Employe", idEmploye));
+        employe.setAgence(null);
+        return employeRepo.save(employe);
+    }
+
+    @Override
+    @Transactional
+    public Employe affecterEmploye(Long idEmploye, Long idAgence) {
+        Employe employe = employeRepo.findById(idEmploye)
+                .orElseThrow(() -> new ResourceNotFoundException("Employe", idEmploye));
+        Agence agence = agenceRepo.findById(idAgence)
+                .orElseThrow(() -> new ResourceNotFoundException("Agence", idAgence));
+        employe.setAgence(agence);
+        return employeRepo.save(employe);
     }
 }

@@ -3,6 +3,7 @@ package tn.esprit.autoloc.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,12 @@ public class Contrat {
     Long idContrat;
 
     @Column(nullable = false)
+    @NotNull(message = "La date de signature est obligatoire")
     LocalDate dateSignature;
 
     @Column(nullable = false, precision = 10, scale = 2)
+    @NotNull(message = "Le montant total est obligatoire")
+    @Positive(message = "Le montant total doit être positif")
     BigDecimal montantTotal;
 
     @Column(nullable = false)

@@ -2,8 +2,13 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.Entities.Agence;
+import tn.esprit.autoloc.Entities.Equipement;
 import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Vehicule;
+import tn.esprit.autoloc.Repositories.IAgenceRepo;
+import tn.esprit.autoloc.Repositories.IEquipementRepo;
 import tn.esprit.autoloc.Repositories.IVehiculeRepo;
 
 import java.util.HashSet;
@@ -15,6 +20,8 @@ import java.util.Set;
 
 public class VehiculeServiceImpl implements IVehicule {
     private final IVehiculeRepo vehiculeRepo;
+    private final IAgenceRepo agenceRepo;
+    private final IEquipementRepo equipementRepo;
 
 
     @Override
@@ -50,5 +57,40 @@ public class VehiculeServiceImpl implements IVehicule {
          */
         return vehiculeRepo.findById(idVehicule)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicule", idVehicule));
+    }
+
+    // Atelier 6 : ManyToOne Vehicule -> Agence (côté propriétaire : Vehicule.agence)
+    @Override
+    @Transactional
+    public Vehicule affecterVehicule(Long idVehicule, Long idAgence) {
+        Vehicule vehicule = vehiculeRepo.findById(idVehicule)
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicule", idVehicule));
+        Agence agence = agenceRepo.findById(idAgence)
+                .orElseThrow(() -> new ResourceNotFoundException("Agence", idAgence));
+        vehicule.setAgence(agence);
+        return vehiculeRepo.save(vehicule);
+    }
+
+    // Atelier 6 : ManyToMany Vehicule <-> Equipement (côté propriétaire : Vehicule.equipements)
+    @Override
+    @Transactional
+    public Vehicule affecterEquipement(Long idVehicule, Long idEquipement) {
+        Vehicule vehicule = vehiculeRepo.findById(idVehicule)
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicule", idVehicule));
+        Equipement equipement = equipementRepo.findById(idEquipement)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipement", idEquipement));
+        vehicule.getEquipements().add(equipement);
+        return vehiculeRepo.save(vehicule);
+    }
+
+    @Override
+    @Transactional
+    public Vehicule desaffecterEquipement(Long idVehicule, Long idEquipement) {
+        Vehicule vehicule = vehiculeRepo.findById(idVehicule)
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicule", idVehicule));
+        Equipement equipement = equipementRepo.findById(idEquipement)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipement", idEquipement));
+        vehicule.getEquipements().remove(equipement);
+        return vehiculeRepo.save(vehicule);
     }
 }
