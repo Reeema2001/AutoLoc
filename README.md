@@ -82,3 +82,9 @@ L'objectif est de numériser l'ensemble du processus au travers d'une applicatio
   - [x] `VehiculeController` : affecter un véhicule à une agence (`PUT /api/Vehicule/affecterVehicule/{idVehicule}/{idAgence}`)
   - [x] `VehiculeController` : affecter et désaffecter un équipement (`PUT /api/Vehicule/affecterEquipement/{idVehicule}/{idEquipement}`, `PUT /api/Vehicule/desaffecterEquipement/{idVehicule}/{idEquipement}`)
   - [x] Services en `@Transactional` : chargement par `findById` (`orElseThrow`), modification du côté propriétaire, puis `save`
+- Activité DTO (Chapitre 10 : Spring DTO et MapStruct)
+  - [x] MapStruct 1.5.5.Final ajouté au `pom.xml` (dépendance et annotation processor, avec `lombok-mapstruct-binding`)
+  - [x] Scénario 1 : `ClientRequestDto` (nom et prénom obligatoires, email et téléphone facultatifs), `ClientResponseDto`, `ClientMapper` ; `ajouterClient` et `recupererClientById` adaptés aux DTO (`POST /api/Client/AddClient`, `GET /api/Client/GetClient/{id}`)
+  - [x] Scénario 2 : `ReservationResponseDto` (réservation + nom/prénom du client + marque/modèle/immatriculation du véhicule), `ReservationMapper` avec `@Mapping` sur les relations ; `GET /api/Reservation/GetAll` renvoie des DTO, nouvelle route `GET /api/Reservation/GetReservationsClient/{idClient}` (requête JPQL `@Query`)
+  - [x] Entité `Client` sans validators (ils sont dans `ClientRequestDto`) ; email, téléphone et numéro de permis facultatifs ; date d'inscription fixée par le service
+  - [x] Nouvelle base de données `autoloc_dto_db` (créée par Hibernate au démarrage)

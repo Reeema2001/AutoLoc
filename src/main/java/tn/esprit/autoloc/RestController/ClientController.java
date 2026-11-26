@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.autoloc.DTO.ClientRequestDto;
+import tn.esprit.autoloc.DTO.ClientResponseDto;
 import tn.esprit.autoloc.Entities.Client;
 import tn.esprit.autoloc.Services.IClient;
 
@@ -17,10 +19,13 @@ public class ClientController {
     private final IClient iClient;
 
     @Operation(description="ajouter un objet client dans la BD")
+
     @PostMapping("/AddClient")
-    public Client ajouterClient(@Valid @RequestBody Client client){
-        return iClient.ajouterClient(client);
+    public ClientResponseDto ajouterClient(@Valid @RequestBody ClientRequestDto dto){
+        return iClient.ajouterClient(dto);
     }
+
+
     @Operation(description="Récuperer la liste des clients")
     @GetMapping("/GetAll")
     public List<Client> getAll(){
@@ -28,7 +33,7 @@ public class ClientController {
     }
     @Operation(description="Récuperer un client par son id")
     @GetMapping("/GetClient/{id}")
-    public Client getClient(@PathVariable Long id){
+    public ClientResponseDto getClient(@PathVariable Long id){
         return iClient.recupererClientById(id);
     }
     @Operation(description="supprimer un client par son id")

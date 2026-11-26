@@ -2,7 +2,6 @@ package tn.esprit.autoloc.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,8 @@ import java.util.Set;
 
 import java.time.LocalDate;
 
+// Activité DTO : plus de validators ici (@NotBlank, @Size, @Email...).
+// Les règles de l'API sont dans ClientRequestDto ; l'entité ne garde que le mapping de la table (@Column).
 @Entity
 @Getter
 @Setter
@@ -24,34 +25,25 @@ public class Client {
     Long idClient;
 
     @Column(nullable = false, length = 50)
-    @NotBlank(message = "Le nom est obligatoire")
-    @Size(max = 50, message = "Le nom ne doit pas dépasser 50 caractères")
     String nom;
 
     @Column(nullable = false, length = 50)
-    @NotBlank(message = "Le prénom est obligatoire")
-    @Size(max = 50, message = "Le prénom ne doit pas dépasser 50 caractères")
     String prenom;
 
-    @Column(nullable = false, unique = true, length = 100)
-    @NotBlank(message = "L'email est obligatoire")
-    @Size(max = 100, message = "L'email ne doit pas dépasser 100 caractères")
-    @Email(message = "L'email n'est pas valide")
+    // facultatif (Activité DTO)
+    @Column(unique = true, length = 100)
     String email;
 
-    @Column(nullable = false, length = 20)
-    @NotBlank(message = "Le téléphone est obligatoire")
-    @Size(max = 20, message = "Le téléphone ne doit pas dépasser 20 caractères")
+    // facultatif (Activité DTO)
+    @Column(length = 20)
     String telephone;
 
-    @Column(nullable = false, unique = true, length = 30)
-    @NotBlank(message = "Le numéro de permis est obligatoire")
-    @Size(max = 30, message = "Le numéro de permis ne doit pas dépasser 30 caractères")
+    // absent du ClientRequestDto -> facultatif à la création
+    @Column(unique = true, length = 30)
     String numPermis;
 
+    // fixée par le service (LocalDate.now()) lors de l'ajout via le DTO
     @Column(nullable = false)
-    @NotNull(message = "La date d'inscription est obligatoire")
-    @PastOrPresent(message = "La date d'inscription ne peut pas être dans le futur")
     LocalDate dateInscription;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)

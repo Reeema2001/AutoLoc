@@ -2,8 +2,11 @@ package tn.esprit.autoloc.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.autoloc.DTO.ReservationResponseDto;
 import tn.esprit.autoloc.Exceptions.ResourceNotFoundException;
 import tn.esprit.autoloc.Entities.Reservation;
+import tn.esprit.autoloc.Mappers.ReservationMapper;
+import tn.esprit.autoloc.Repositories.IClientRepo;
 import tn.esprit.autoloc.Repositories.IReservationRepo;
 
 import java.util.HashSet;
@@ -15,6 +18,8 @@ import java.util.Set;
 
 public class ReservationServiceImpl implements IReservation {
     private final IReservationRepo reservationRepo;
+    private final IClientRepo clientRepo;
+    private final ReservationMapper reservationMapper;
 
 
     @Override
@@ -32,9 +37,20 @@ public class ReservationServiceImpl implements IReservation {
         reservationRepo.deleteById(idReservation);
     }
 
+    // Activité DTO - scénario 2 : entités -> liste de DTO
     @Override
-    public List<Reservation> recupererReservations() {
-        return reservationRepo.findAll();
+    public List<ReservationResponseDto> recupererReservations() {
+        return reservationMapper.toDtoList(reservationRepo.findAll());
+    }
+
+    // Activité DTO - scénario 2 : réservations d'un client (requête JPQL)
+    @Override
+    public List<ReservationResponseDto> recupererReservationsParClient(Long idClient) {
+        // erreur si le client n'existe pas (au lieu d'une liste vide trompeuse)
+        if (!clientRepo.existsById(idClient)) {
+            throw new ResourceNotFoundException("Client", idClient);
+        }
+        return reservationMapper.toDtoList(reservationRepo.findReservationsByClient(idClient));
     }
 
     @Override
@@ -49,4 +65,5 @@ public class ReservationServiceImpl implements IReservation {
         return reservationRepo.findById(idReservation)
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation", idReservation));
     }
+
 }

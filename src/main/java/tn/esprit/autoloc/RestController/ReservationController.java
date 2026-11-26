@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.autoloc.DTO.ReservationResponseDto;
 import tn.esprit.autoloc.Entities.Reservation;
 import tn.esprit.autoloc.Services.IReservation;
 
@@ -23,8 +24,13 @@ public class ReservationController {
     }
     @Operation(description="Récuperer la liste des réservations")
     @GetMapping("/GetAll")
-    public List<Reservation> getAll(){
+    public List<ReservationResponseDto> getAll(){
         return iReservation.recupererReservations();
+    }
+    @Operation(description="Récuperer les réservations d'un client")
+    @GetMapping("/GetReservationsClient/{idClient}")
+    public List<ReservationResponseDto> getReservationsClient(@PathVariable Long idClient){
+        return iReservation.recupererReservationsParClient(idClient);
     }
     @Operation(description="Récuperer une réservation par son id")
     @GetMapping("/GetReservation/{id}")
